@@ -1,4 +1,4 @@
-use std::{time::Instant, process};
+use std::time::Instant;
 
 
 fn main() {
@@ -35,8 +35,7 @@ fn iterfactorial(limit: &u64) -> u64 {
             Some(result) => factor = result,
             None => {
                 // catch integer overflow and exit cleanly
-                println!("A really, really, really big number");
-                process::exit(0);
+                panic!("A really, really, really big number");
             }
         }
     }
@@ -58,8 +57,7 @@ fn factmultiplier(iter: &u64, factorial: &mut u64) -> u64 {
         Some(result) => *factorial = result,
         None => {
             // catch integer overflow and exit cleanly
-            println!("A really, really, really big number");
-            process::exit(0);
+            panic!("A really, really, really big number");
         }
     }
     return *factorial;
