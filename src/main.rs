@@ -3,7 +3,11 @@ use std::{time::Instant, process};
 
 fn main() {
     // 20! seems to be the max for u64
-    let input = 20;
+    let input = 1;
+
+    if input < 1 {
+        println!("Please enter an input greater than one");
+    }
 
     // calculate start time of the interative approach
     let iterstart = Instant::now();
@@ -24,23 +28,19 @@ fn main() {
 }
 
 fn iterfactorial(limit: &u64) -> u64 {
-    if *limit == 1 {
-        return 1;
-    } else {
-        let mut factor: u64 = 1;
-        for i in (1..=*limit).rev() {
-            // use checked_mul to assure we don't overflow
-            match factor.checked_mul(i) {
-                Some(result) => factor = result,
-                None => {
-                    // catch integer overflow and exit cleanly
-                    println!("A really, really, really big number");
-                    process::exit(0);
-                }
+    let mut factor: u64 = 1;
+    for i in (1..=*limit).rev() {
+        // use checked_mul to assure we don't overflow
+        match factor.checked_mul(i) {
+            Some(result) => factor = result,
+            None => {
+                // catch integer overflow and exit cleanly
+                println!("A really, really, really big number");
+                process::exit(0);
             }
         }
-        return factor;
     }
+    return factor;
 }
 
 fn funcfactorial(limit: &u64, mut result: u64) -> u64 {
