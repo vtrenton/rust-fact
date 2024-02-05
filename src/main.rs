@@ -11,28 +11,25 @@ fn main() {
 
     // calculate start time of the interative approach
     let iterstart = Instant::now();
+    
     // perform the standard iterative approach
-    if let Ok(itfact) = iterfactorial(&input) {
-        println!("The factorial of {} is {}", &input, itfact);
-    } else {
-        // I want the program to exit here
-        // If we reach this point the rest of the program is broken
-        panic!("A really, really, really big number");
-    }
+    let itfact = iterfactorial(&input)
+        .expect("A really, really big number");
+    println!("The factorial of {} is {}", &input, itfact);
+    
     // gather post execution time
     let itercost = iterstart.elapsed();
     println!("Iterative approach: {} nanoseconds", itercost.subsec_nanos());
 
     // calculate start time of the functional approach
     let funcstart = Instant::now();
+    
     // perform the functional approach
     let factor: u64 = 1;
-    if let Ok(funfact) =  funcfactorial(&input, factor) {
-        println!("The factorial of {} is {}", &input, funfact);
-    } else {
-        // I cant think of a single reason we'd ever reach this
-        panic!("Something went VERY wrong");
-    }
+    let funfact = funcfactorial(&input, factor)
+        .expect("Something went very very wrong!");
+    println!("The factorial of {} is {}", &input, funfact);
+    
     // gather post execution time
     let funccost = funcstart.elapsed();
     println!("Functional approach: {} nanoseconds", funccost.subsec_nanos());
@@ -46,7 +43,6 @@ fn iterfactorial(limit: &u64) -> Result<u64, String> {
             .checked_mul(i)
             .ok_or_else(|| "Integer Overflow".to_string())?;
     }
-
     Ok(factor)
 }
 
